@@ -156,5 +156,56 @@
   (assert (= (apply str (conjoin ", " ["one" "two" "three"])) "one, two, three"))
   (assert (= (conjoin :z [:a :b :c :d]) [:a :z :b :z :c :z :d]))
 
+; http://www.4clojure.com/problem/41
+; Write a function which drops every Nth item from a sequence.
+ (defn byebye [xs n]
+    (keep-indexed #(if (not= (mod (inc %1) n) 0) %2) xs))
+
+  (assert (= (byebye [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]))
+  (assert (= (byebye [:a :b :c :d :e :f] 2) [:a :c :e]))
+  (assert (= (byebye [1 2 3 4 5 6] 4) [1 2 3 5 6]))
+
+; http://www.4clojure.com/problem/42
+; Write a function which calculates factorials.
+ (defn fact [x]
+   (apply * (range 2 (inc x))))
+
+  (assert (= (fact 1) 1))
+  (assert (= (fact 3) 6))
+  (assert (= (fact 5) 120))
+  (assert (= (fact 8) 40320))
+
+
+; http://www.4clojure.com/problem/65
+; Clojure has many sequence types, which act in subtly different ways. The core functions typically
+; convert them into a uniform "sequence" type and work with them that way, but it can be important
+; to understand the behavioral and performance differences so that you know which kind is appropriate
+; for your application.
+;
+; Write a function which takes a collection and returns one of :map, :set, :list, or :vector - describing
+; the type of collection it was given. You won't be allowed to inspect their class or use the built-in
+; predicates like list? - the point is to poke at them and understand their behavior.
+; Special Restrictions
+; class
+; type
+; Class
+; vector?
+; sequential?
+; list?
+; seq?
+; map?
+; set?
+; instance?
+; getClass
+  (defn inspect [s]
+    )
+
+  ; (assert (= :map (inspect {:a 1, :b 2})))
+  ; (assert (= :list (inspect (range (rand-int 20)))))
+  ; (assert (= :vector (inspect [1 2 3 4 5 6])))
+  ; (assert (= :set (inspect #{10 (rand-int 5)})))
+  ; (assert (= [:map :set :vector :list] (map inspect [{} #{} [] ()])))
+
+
 (println "Yee-haw it all worked!")
 )
