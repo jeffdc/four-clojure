@@ -175,6 +175,30 @@
   (assert (= (fact 5) 120))
   (assert (= (fact 8) 40320))
 
+; http://www.4clojure.com/problem/43
+; Write a function which reverses the interleave process into x number of subsequences.
+(defn decomplect [xs x]
+  (apply map list (partition x xs)))
+
+  (assert (= (decomplect [1 2 3 4 5 6] 2) '((1 3 5) (2 4 6))))
+  (assert (= (decomplect (range 9) 3) '((0 3 6) (1 4 7) (2 5 8))))
+  (assert (= (decomplect (range 10) 5) '((0 5) (1 6) (2 7) (3 8) (4 9))))
+
+; http://www.4clojure.com/problem/44
+; Write a function which can rotate a sequence in either direction.
+(defn rotator [x xs]
+  (nthrest
+     (take (+ (mod x (count xs)) (count xs)) (cycle xs))
+     (mod x (count xs))))
+;; really should figure out a better way, the repeated calculation of the position is ugly
+
+  (assert (= (rotator 2 [1 2 3 4 5]) '(3 4 5 1 2)))
+  (assert (= (rotator -2 [1 2 3 4 5]) '(4 5 1 2 3)))
+  (assert (= (rotator 6 [1 2 3 4 5]) '(2 3 4 5 1)))
+  (assert (= (rotator 1 '(:a :b :c)) '(:b :c :a)))
+  (assert (= (rotator -4 '(:a :b :c)) '(:c :a :b)))
+
+
 
 ; http://www.4clojure.com/problem/65
 ; Clojure has many sequence types, which act in subtly different ways. The core functions typically
